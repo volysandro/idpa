@@ -1,0 +1,5 @@
+tasks:
+  - init: |
+      pip3 install Flask Flask-SQLAlchemy
+    command: |
+      export FLASK_APP=app.py && flask run
