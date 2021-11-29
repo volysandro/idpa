@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+
+        {% for item in manager %}
+        <table>
+            <tr>
+                <td>
+                    <p>{{item.name}}</p>
+                </td>
+                <td>
+                    <p>{{item.email}}</p>
+                </td>
+                <td>
+                    Active: <a href="/admin/api/update/{{item.id}}/state">{{ item.active }}</a>    
+                </td>
+                <td>
+                    Reset upon login: <a href="/admin/api/update/{{item.id}}/triggerreset">{{ item["reset_upon_login"] }}</a>    
+                </td>
+            </tr>
+        </table>
+            
+        {% endfor %}
+
+    </body>
+    <script>
+    </script>
+</html>

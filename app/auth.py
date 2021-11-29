@@ -54,8 +54,12 @@ def signup_post():
         flash("Email address already exists")
         return redirect(url_for('auth.signup'))
 
+    admin=False
+    if len(User.query.all()) == 0:
+        admin=True
+
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), manager=manager, active=active)
+    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), manager=manager, active=active, admin=admin)
 
     # add the new user to the database
     db.session.add(new_user)
