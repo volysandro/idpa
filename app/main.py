@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from . import db
+from flask_login import current_user
 
 main_blueprint = Blueprint('main', __name__)
 
@@ -9,4 +10,4 @@ def index():
 
 @main_blueprint.route('/profile')
 def profile():
-    return 'Profile'
+    return current_user.name + "   " + current_user.email
