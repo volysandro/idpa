@@ -36,5 +36,9 @@ def create_app():
     from .admin import admin_blueprint
     app.register_blueprint(admin_blueprint)
 
+    # blueprint for manager routes in our app
+    from .manager import manager_blueprint
+    app.register_blueprint(manager_blueprint)
+
     return app
 

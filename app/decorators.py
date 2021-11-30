@@ -12,3 +12,14 @@ def admin_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+def manager_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        if not current_user.manager:
+            return redirect(url_for('main.profile'))
+
+        return f(*args, **kwargs)
+
+    return decorated_function
