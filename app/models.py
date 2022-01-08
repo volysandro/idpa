@@ -3,7 +3,7 @@ from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    class_id = db.Column(db.Integer, db.ForeignKey('class.id'))
+    class_id = db.Column(db.Integer)
     active = db.Column(db.Boolean, default=True)
     reset_upon_login = db.Column(db.Boolean, default=False)
     manager = db.Column(db.Boolean, default=False)
@@ -15,7 +15,6 @@ class User(UserMixin, db.Model):
 class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     class_name = db.Column(db.String(100))
+    invite_key = db.Column(db.String(8))
+    config = db.Column(db.String(250))
 
-class Invite(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    class_id = db.Column(db.Integer, db.ForeignKey('class.id'))

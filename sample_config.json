@@ -1,0 +1,34 @@
+{
+    "name": "S1C",
+    "weeks": 35,
+    "min_presence": "80%",
+    "subject_buckets": [
+        {
+            "name": "nature",
+            "single": "no",
+            "1": "physics",
+            "2": "chemistry",
+            "1_counts": "50%",
+            "1_weekly": 4,
+            "1_finals": "50%",
+            "2_counts": "50%",
+            "2_weekly": 3
+        },
+        {
+            "name": "maths_basic",
+            "single": "yes",
+            "weekly": 10,
+            "finals": "50%"
+        }
+    ],
+    "single_focus_subjects": [
+        {
+            "name": "Interdisziplinäres Arbeiten",
+            "grades": 2,
+            "presence": "yes",
+            "weekly": 1,
+            "1_counts": "50%",
+            "2_counts": "50%"
+        }
+    ]
+}
