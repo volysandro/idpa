@@ -15,34 +15,51 @@
         {{grades}} <br>
         {{absences}} <br>
 
-        <table>
-          <thead>
-            <tr>
-                <th>Penis</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            <tr>
-              <td>Alvin</td>
-              <td>Eclair</td>
-              <td>$0.87</td>
-            </tr>
-            <tr>
-              <td>Alan</td>
-              <td>Jellybean</td>
-              <td>$3.76</td>
-            </tr>
-            <tr>
-              <td>Jonathan</td>
-              <td>Lollipop</td>
-              <td>$7.00</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title center-align">Overview Grades</span>
+            <table>
+              <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Average</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in grades.averages %}
+                <tr>
+                  <td>{{item.name}}</td>
+                  <td>{{item.average}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title center-align">Overview Absences</span>
+              <table>
+                <thead>
+                  <tr>
+                      <th>Lessions</th>
+                      <th>Percentage</th>
+                      <th>Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sub in absences.subjects %}
+                  <tr>
+                    <td>{{sub.count}}</td>
+                    <td>{{sub.percentage}}</td>
+                    <td>{{sub.min_satisfied}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+        </div>
     </body>
     <script>
     </script>

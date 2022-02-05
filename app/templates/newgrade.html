@@ -1,24 +1,49 @@
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title center-align">Create new Grade</span>
+              <form method="POST" action="/user/api/grade/submit">
 
-<form method="POST" action="/user/api/grade/submit">
+                <div class="input-field col s12">
+                    <select id="subject" name="subject">
+                        {% for subject in subjects %}
+                            <option value="{{subject.id}}">{{subject.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Choose a subject</label>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="grade" id="grade" type="text" class="validate">
+                        <label for="grade">Your Grade</label>
+                    </div>
+                </div>
+                <p>
+                    <label>
+                        <input name="remember" type="checkbox" />
+                        <span>Finals?</span>
+                    </label>
+                </p>
+                </div>
+                <div class="card-action align-right">
+                    <button class="btn white black-text">Submit</button>
+                </div>
+            </div>
+          </div>
+    </body>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+</html>
 
-    <label for="subject">Choose a car:</label>
-    <select id="subject" name="subject">
-        {% for subject in subjects %}
-        <option value="{{subject.id}}">{{subject.name}}</option>
-
-        {% endfor %}
-    </select>
-
-    <div class="field">
-        <div class="control">
-            <input class="input is-large" type="text" name="grade" placeholder="Your Grade">
-        </div>
-    </div>
-    <div class="field">
-        <label class="checkbox">
-            <input name="remember" type="checkbox">
-            Finals?
-        </label>
-    </div>
-    <button class="button is-block is-info is-large is-fullwidth">Login</button>
-</form>
