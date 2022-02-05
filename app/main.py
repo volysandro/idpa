@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request
 from . import db
 from flask_login import current_user, login_required
-from .userlogic import enrol, gather_info
+from .userlogic import enrol, gather_info, gather_grades, submit_grade, get_subjects, submit_absence, gather_absences
 main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/')
@@ -15,7 +15,7 @@ def index():
 @main_blueprint.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", info=gather_info(current_user.id))
+    return render_template("profile.html", info=gather_info(current_user.id), grades=gather_grades(current_user.id), user=current_user, absences=gather_absences(current_user.id))
 
 @main_blueprint.route('/enterclass')
 def enterclass():
@@ -25,4 +25,27 @@ def enterclass():
 def submitclasskey():
     key = request.form.get("key")
     enrol(current_user.id, key)
+    return redirect('/profile')
+
+@main_blueprint.route('/grades/submit')
+def newgrade():
+    return render_template("newgrade.html", subjects=get_subjects(current_user.id))
+
+@main_blueprint.route('/absences/submit')
+def newabsence():
+    return render_template("newabsence.html", subjects=get_subjects(current_user.id))
+
+@main_blueprint.route('/user/api/grade/submit', methods = ["POST"])
+def submitgrade():
+    s_id = request.form.get("subject")
+    grade = request.form.get("grade")
+    final = request.form.get("final")
+    submit_grade(current_user.id, s_id, grade, final)
+    return redirect('/profile')
+
+@main_blueprint.route('/user/api/absence/submit', methods = ["POST"])
+def submitabsence():
+    s_id = request.form.get("subject")
+    count = request.form.get("count")
+    submit_absence(current_user.id, s_id, count)
     return redirect('/profile')

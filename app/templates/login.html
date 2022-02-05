@@ -1,32 +1,76 @@
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
-        {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                </div>
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+        <div class="column is-4 is-offset-4">
+            <h3 class="title">Login</h3>
+            <div class="box">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="notification is-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form class="col s12" method="POST" action="/login">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="email" id="email" type="text" class="validate">
+                            <label for="email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="password" id="password" type="password" class="validate">
+                            <label for="password">Your Password</label>
+                        </div>
+                    </div>
+                    <p>
+                        <label>
+                            <input name="remember" type="checkbox" />
+                            <span>Remember me</span>
+                        </label>
+                    </p>
+                    <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                </form>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+              <div class="card">
+                <div class="card-content ">
+                  <span class="card-title center-align">Login Form</span>
+                  <form class="col s12" method="POST" action="/login">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="email" id="email" type="text" class="validate">
+                            <label for="email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="password" id="password" type="password" class="validate">
+                            <label for="password">Your Password</label>
+                        </div>
+                    </div>
+                    <p>
+                        <label>
+                            <input name="remember" type="checkbox" />
+                            <span>Remember me</span>
+                        </label>
+                    </p>
+                </form>
                 </div>
+                <div class="card-action">
+                    <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                </div>
+              </div>
             </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input name="remember" type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
-        </form>
-    </div>
-</div>
+          </div>
+    </body>
+</html>

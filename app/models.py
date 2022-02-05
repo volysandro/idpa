@@ -40,5 +40,12 @@ class Grade(db.Model):
     user_id = db.Column(db.Integer)
     subject_id = db.Column(db.Integer)
     final = db.Column(db.Boolean, default=False)
+    grade = db.Column(db.Float)
+
+class Absence(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    subject_id = db.Column(db.Integer)
+    count = db.Column(db.Integer)
 
 

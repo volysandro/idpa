@@ -16,7 +16,8 @@ manager_blueprint = Blueprint('manager', __name__)
 def index():
     if not current_user.class_id:
         return redirect(url_for('manager.setup'))
-    return "Hello Manager"
+    invite_key = Class.query.filter_by(id=current_user.class_id).first().invite_key
+    return render_template("manager.html", key=invite_key)
 
 @manager_blueprint.route('/manager/setup')
 @manager_required
