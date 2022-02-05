@@ -15,7 +15,7 @@ def index():
 @main_blueprint.route('/profile')
 @login_required
 def profile():
-    return gather_info(current_user.id)
+    return render_template("profile.html", info=gather_info(current_user.id))
 
 @main_blueprint.route('/enterclass')
 def enterclass():
