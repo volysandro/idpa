@@ -47,7 +47,7 @@ def signup_post():
     name = request.form.get('name')
     password = request.form.get('password')
     manager = True if request.form.get('manager') else False
-    active = False if request.form.get('manager') else True
+    active = True if request.form.get('manager') else True
     user = User.query.filter_by(email=email).first()
 
     if user:

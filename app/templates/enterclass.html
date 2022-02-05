@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+
+
+
+        <h1>Do you have an invite key?</h1>
+        <h2>Your class invite key is: {{invite_key}}</h2>
+        <form method="POST" action="/submitclasskey" id="classform">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="key" name="key" placeholder="Your invite key" autofocus="">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Submit config</button>
+        </form>
+
+
+
+    </body>
+    <script>
+    </script>
+</html>

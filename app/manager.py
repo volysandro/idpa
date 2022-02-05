@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import current_user
 from . import db
 from .models import User, Class
+from .configparser import parse
 import json
 from .decorators import manager_required
 from random import choice
@@ -46,5 +47,18 @@ def configform():
 @manager_blueprint.route('/manager/setup/addconfig', methods=["POST"])
 @manager_required
 def addconfig():
-    print(request.form.get("config"))
-    return "OK"
+    config = request.form.get("config")
+    print(config)
+    rsp = parse(config)
+    if rsp == "NOK_REQ":
+        return "Config is not complete"
+    elif rsp == "NOK_NEX":
+        return "Class name specified does not exist"
+    elif rsp == "NOK_PTL":
+        return "Minimum presence specified does not meet the percentile requirement"
+    elif rsp == "NOK_WCT":
+        return "Week count does not meet requirements or is straight up cruel (must be between 10 and 50)"
+    elif rsp == "NOK_SJK":
+        return "Something seems off with the subject-bucket keys"
+
+    return "Parsing"
