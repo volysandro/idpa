@@ -29,7 +29,7 @@ This can help you get the dev server started. There is also a script called *set
 
 #### Toglle user active / inactive
 
-```http
+```https
   POST /admin/api/update/{id}/state
 ```
 
@@ -39,7 +39,7 @@ This can help you get the dev server started. There is also a script called *set
 
 #### Trigger password reset for user
 
-```http
+```https
   POST /admin/api/update/triggerreset
 ```
 
@@ -49,7 +49,7 @@ This can help you get the dev server started. There is also a script called *set
 
 #### Submit new grade for user
 
-```http
+```https
   POST /user/api/grade/submit
 ```
 
@@ -62,7 +62,7 @@ This can help you get the dev server started. There is also a script called *set
 
 #### Submit new absence for user
 
-```http
+```https
   POST /user/api/grade/submit
 ```
 
