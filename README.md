@@ -23,7 +23,7 @@ This can help you get the dev server started. There is also a script called *set
 ```
 
 ## Class config
-<img src="/config.png" alt="Config"/>
+<img src="/config.drawio.png" alt="Config"/>
     
 ## API Reference
 
