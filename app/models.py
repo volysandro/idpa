@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,12 +41,34 @@ class Grade(db.Model):
     user_id = db.Column(db.Integer)
     subject_id = db.Column(db.Integer)
     final = db.Column(db.Boolean, default=False)
-    grade = db.Column(db.Float)
+    value = db.Column(db.Float)
+    date = db.Column(db.DateTime)
+
 
 class Absence(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     subject_id = db.Column(db.Integer)
     count = db.Column(db.Integer)
+    date = db.Column(db.DateTime)
 
 
+
+class SBucket(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    class_id = db.Column(db.Integer)
+    name = db.Column(db.String(50))
+    tests = db.Column(db.PickleType)
+
+class STest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    class_id = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
+    name = db.Column(db.String(50))
+
+class SGrade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    sgrade_id = db.Column(db.Integer)
+    value = db.Column(db.Float)
+    date = db.Column(db.DateTime)

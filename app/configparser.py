@@ -1,5 +1,5 @@
 import json
-from .models import Class, Subject, Bucket
+from .models import Class, Subject, Bucket, SBucket, STest, SGrade
 from . import db
 from flask_login import current_user
 
@@ -39,6 +39,7 @@ def parse(config_json):
       ## Analyze main grade buckets
     subject_buckets = config["subject_buckets"]
     for subject in subject_buckets:
+
         ## Test important keys
         if not "name" in subject.keys() or not "single" in subject.keys():
             return "NOK_SJK"
@@ -136,3 +137,29 @@ def parse(config_json):
                 tertiary_subject = Subject(name=tertiary_name, class_id=class_id, bucket_id=bucket_id, bucket_bool=True, weight=tertiary_weight, finals=tertiary_finals, weekly=tertiary_weekly)
                 db.session.add(tertiary_subject)
             db.session.commit()
+
+    ssubject_buckets = config["special_subjects"]
+    for subject in ssubject_buckets:
+        name = subject["name"]
+        num = subject["grades"]
+        presence = True if subject["presence"] == "yes" or "Yes" or "True" or "true" else False
+        weekly = subject["weekly"]
+
+        test_ids = []
+        iter = 1
+        while iter <= num:
+            weight = int(subject[str(iter) + "_counts"].replace("%", ""))
+            name = str(iter)
+            if str(iter) + "_name" in subject.keys():
+                name = subject[str(iter) + "_name"]
+            stest = STest(name=name, class_id=class_id, weight=weight)
+            db.session.add(stest)
+            db.session.commit()
+
+            stest_id = STest.query.filter_by(name=name, class_id=class_id).first().id
+            test_ids.append(stest_id)
+            iter += 1
+        
+        sbucket = SBucket(name=name, tests=test_ids, class_id=class_id)
+        db.session.add(sbucket)
+        db.session.commit()

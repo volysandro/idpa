@@ -22,14 +22,15 @@
             "finals": "50%"
         }
     ],
-    "single_focus_subjects": [
+    "special_subjects": [
         {
             "name": "Interdisziplinäres Arbeiten",
             "grades": 2,
             "presence": "yes",
             "weekly": 1,
             "1_counts": "50%",
-            "2_counts": "50%"
+            "2_counts": "50%",
+            "1_name": "IDAF"
         }
     ]
 }

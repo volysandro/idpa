@@ -1,5 +1,6 @@
 from . import db
 from .models import User, Class, Subject, Grade, Bucket, Absence
+from datetime import datetime
 
 def enrol(user_id, key):
     user = User.query.filter_by(id=user_id).first()
@@ -40,9 +41,9 @@ def gather_grades(user_id):
 
     for subject in subjects:
         grades = Grade.query.filter_by(user_id=user_id, subject_id=subject.id).all()
-        sum = 0
+        sum = 0.0
         for grade in grades:
-            sum += grade.grade
+            sum += grade.value
         average = sum / len(grades)
         name = subject.name
         subject_id = subject.id
@@ -57,9 +58,9 @@ def gather_grades(user_id):
         bucket_hundreth = 0
         for subject in subjects:
             grades = Grade.query.filter_by(user_id=user_id, subject_id=subject.id).all()
-            sum = 0
+            sum = 0.0
             for grade in grades:
-                sum += grade.grade
+                sum += grade.value
             average = sum / len(grades)
             rounded_average = round(average*2)/2
             bucket_hundreth += rounded_average * subject.weight
@@ -72,12 +73,12 @@ def gather_grades(user_id):
 
     grades = Grade.query.filter_by(user_id=user_id).all()
     for grade in grades:
-        ret_obj["grades"].append({"sid": grade.subject_id, "grade": grade.grade})
+        ret_obj["grades"].append({"sid": grade.subject_id, "grade": grade.value})
 
     return ret_obj
 
 def submit_grade(user_id, s_id, grade, final):
-    grade = Grade(user_id=user_id, subject_id=s_id, grade=grade, final=final)
+    grade = Grade(user_id=user_id, subject_id=s_id, value=grade, final=final, date=datetime.now())
     db.session.add(grade)
     db.session.commit()
 
@@ -89,7 +90,7 @@ def get_subjects(user_id):
     return subjects
 
 
-def submit_absence(user_id, s_id, count):
+def submit_absence(user_id, s_id, count, date=datetime.now()):
     absence = Absence(user_id=user_id, subject_id=s_id, count=count)
     db.session.add(absence)
     db.session.commit()
@@ -111,6 +112,6 @@ def gather_absences(user_id):
         ret_obj["subjects"].append({
             "count": count,
             "percentage": count / (weeks * subject.weekly) * 100,
-            "min_satisfied": False if (count / (weeks * subject.weekly) * 100) > min else True
+            "min_satisfied": False if (count / (weeks * subject.weekly) * 100) > (100 - min) else True
         })
     return ret_obj
