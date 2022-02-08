@@ -8,8 +8,16 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     <body>
-        <div class="row">
-            <div class="col s12 m6">
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+            <span class="brand-logo center">Yeah login to this amazing site</span>
+              <a href="#" class="brand-logo right">Logo</a>
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+              </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="col s12 m12">
               <div class="card">
                 <div class="card-content">
                   <span class="card-title center-align">Login Form</span>
@@ -41,8 +49,13 @@
                             <span>Remember me</span>
                         </label>
                     </p>
-                    <div class="card-action align-right">
-                        <button class="btn white black-text">Login</button>
+                    <div class=" card-action row">
+                        <div class="left">
+                            <a class="blue-text" href="/signup">U new? Then sign up</a>
+                        </div>
+                        <div class="right">
+                            <button class="btn white black-text">Login</button>
+                        </div>
                     </div>
                 </form>
                 </div>

@@ -8,14 +8,22 @@
     </head>
     <body>
 
+      <nav class="grey darken-4"> 
+        <div class="nav-wrapper">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          <span class="brand-logo center">This is profile site</span>
+          <a href="#" class="brand-logo right">Logo</a>
+        </div>
+      </nav>
 
-
-        {{info}} <br>
+        <!--{{info}} <br>
         {{user}} <br>
         {{grades}} <br>
         {{absences}} <br>
-        {{specials}}
-
+        {{specials}}-->
+      <div class="container">
         <div class="card">
           <div class="card-content">
             <span class="card-title center-align">Overview Grades</span>
@@ -65,29 +73,58 @@
         </div>
 
 
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title center-align">Overview Absences</span>
-              <table>
-                <thead>
-                  <tr>
-                      <th>Lessions</th>
-                      <th>Percentage</th>
-                      <th>Delta</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for sub in absences.subjects %}
-                  <tr>
-                    <td>{{sub.count}}</td>
-                    <td>{{sub.percentage}}</td>
-                    <td>{{sub.min_satisfied}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-          </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title center-align">Overview Absences</span>
+            <table>
+              <thead>
+                <tr>
+                    <th>Lessions</th>
+                    <th>Percentage</th>
+                    <th>Delta</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sub in absences.subjects %}
+                <tr>
+                  <td>{{sub.count}}</td>
+                  <td>{{sub.percentage}}</td>
+                  <td>{{sub.min_satisfied}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
         </div>
+      </div>
+    </div>
+        <footer class="page-footer grey darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">This is an amazing website</h5>
+                <p class="grey-text text-lighten-4">roses are red violets are blue who is your daddy and what does he do</p>
+                <p class="grey-text text-lighten-4">roses are red violets are blue a face like yours belongs in a zoo</p>
+                <p class="grey-text text-lighten-4">roses are red violets are blue I'd rather be single than with someone like you</p>
+                <p class="grey-text text-lighten-4">roses are red violets are blue you look like a donkey and smell like one too</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Much wow such link</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2022 Sanderus And Marcus Productions
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
     </body>
     <script>
     </script>

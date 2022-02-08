@@ -1,39 +1,72 @@
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-                </div>
-            {% endif %}
-        {% endwith %}
-        <form method="POST" action="/signup">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-                </div>
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+            <span class="brand-logo center">Yeah sign up to this amazing site</span>
+              <a href="#" class="brand-logo right">Logo</a>
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+              </ul>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
+        </nav>
+        <div class="container">
+            <div class="col s12 m12">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title center-align">Sign Up Form</span>
+                  <div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="notification is-danger">
+                                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                  </div>
+                  <form method="POST" action="/signup">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="email" id="email" type="text" class="validate">
+                            <label for="email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="name" id="name" type="text" class="validate">
+                            <label for="name">Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="password" id="password" type="password" class="validate">
+                            <label for="password">Your Password</label>
+                        </div>
+                    </div>
+                    <p>
+                        <label>
+                            <input name="manager" type="checkbox" />
+                            <span>Apply as manager</span>
+                        </label>
+                    </p>
+                    <div class=" card-action row">
+                        <div class="left">
+                            <a class="blue-text" href="/login">U not new? Then go to login</a>
+                        </div>
+                        <div class="right">
+                            <button class="btn white black-text">Sign Up</button>
+                        </div>
+                    </div>
+                </form>
                 </div>
+              </div>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input name="manager" type="checkbox">
-                    Apply as class manager
-                </label>
-            </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
-        </form>
-    </div>
-</div>
+          </div>
+    </body>
+</html>

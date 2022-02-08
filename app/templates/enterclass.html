@@ -4,25 +4,47 @@
           src="https://code.jquery.com/jquery-3.6.0.min.js"
           integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
           crossorigin="anonymous"></script>
-
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     <body>
-
-
-
-        <h1>Do you have an invite key?</h1>
-        <h2>Your class invite key is: {{invite_key}}</h2>
-        <form method="POST" action="/submitclasskey" id="classform">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="key" name="key" placeholder="Your invite key" autofocus="">
-                </div>
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="/logout">Logout</a></li>
+              </ul>
+              <span class="brand-logo center">Yoooo enter your key!</span>
+              <a href="#" class="brand-logo right">Logo</a>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit config</button>
-        </form>
-
-
-
+        </nav>
+        <div class="container">
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title center-align">Do you have an invite key?</span>
+                <div>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="notification is-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <form method="POST" action="/submitclasskey" id="classform">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="key" id="key" type="text" class="validate" autofocus="">
+                            <label for="key">Your invite key</label>
+                        </div>
+                    </div>
+                    <div class="align-right">
+                        <button class="btn white black-text">Submit config</button>
+                    </div>
+                </form>
+        
+              </div>
+            </div>
+        </div>
     </body>
     <script>
     </script>
