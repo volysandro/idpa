@@ -1,5 +1,5 @@
 from . import db
-from .models import User, Class, Subject, Grade, Bucket, Absence
+from .models import User, Class, Subject, Grade, Bucket, Absence, SBucket, SGrade, STest
 from datetime import datetime
 
 def enrol(user_id, key):
@@ -44,7 +44,7 @@ def gather_grades(user_id):
         sum = 0.0
         for grade in grades:
             sum += grade.value
-        average = sum / len(grades)
+        average = sum / len(grades) if len(grades) > 0 else "No grades yet"
         name = subject.name
         subject_id = subject.id
         ret_obj["averages"].append({
@@ -52,6 +52,8 @@ def gather_grades(user_id):
             "average": average,
             "sid": subject_id
         })
+
+
 
     for bucket in buckets:
         subjects = Subject.query.filter_by(class_id=class_id, bucket_id=bucket.id).all()
@@ -61,9 +63,10 @@ def gather_grades(user_id):
             sum = 0.0
             for grade in grades:
                 sum += grade.value
-            average = sum / len(grades)
-            rounded_average = round(average*2)/2
-            bucket_hundreth += rounded_average * subject.weight
+            average = sum / len(grades) if len(grades) > 0 else "No grades yet"
+            rounded_average = round(average*2)/2 if len(grades) > 0 else "No grades yet"
+            if len(grades) > 0:
+                bucket_hundreth += rounded_average * subject.weight
         bucket_average = bucket_hundreth / 100
         ret_obj["bucket_averages"].append(
             {
@@ -73,7 +76,7 @@ def gather_grades(user_id):
 
     grades = Grade.query.filter_by(user_id=user_id).all()
     for grade in grades:
-        ret_obj["grades"].append({"sid": grade.subject_id, "grade": grade.value})
+        ret_obj["grades"].append({"sid": grade.subject_id, "grade": grade.value, "date": grade.date.strftime("%m/%d/%Y, %H:%M:%S")})
 
     return ret_obj
 
@@ -90,10 +93,73 @@ def get_subjects(user_id):
     return subjects
 
 
-def submit_absence(user_id, s_id, count, date=datetime.now()):
-    absence = Absence(user_id=user_id, subject_id=s_id, count=count)
+def submit_absence(user_id, s_id, count):
+    absence = Absence(user_id=user_id, subject_id=s_id, count=count, date=datetime.now())
     db.session.add(absence)
     db.session.commit()
+
+def submit_special_grade(user_id, t_id, grade):
+    sgrade = SGrade(user_id=user_id, sgrade_id=t_id, value=grade, date=datetime.now())
+    db.session.add(sgrade)
+    db.session.commit()
+
+def get_special_tests(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    class_id = Class.query.filter_by(id=user.class_id).first().id
+    ssubjects = SBucket.query.filter_by(class_id=class_id).all()
+    tests = []
+    for subject in ssubjects:
+        ids = subject.tests
+        for test_id in ids:
+            test = STest.query.filter_by(id=test_id).first()
+            if not len(SGrade.query.filter_by(user_id=user_id, sgrade_id=test_id).all())>0:
+                tests.append({
+                    "name": test.name,
+                    "id": test.id,
+                    "integrity": test_id,
+                    "subject": subject.name,
+                    "weight": test.weight
+                })
+    if len(tests) == 0:
+        tests.append(False)
+    return tests
+
+def gather_special_grades(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    class_id = Class.query.filter_by(id=user.class_id).first().id
+    ssubjects = SBucket.query.filter_by(class_id=class_id).all()
+    ret = []
+    for subject in ssubjects:
+        name = subject.name
+        test_ids = subject.tests
+
+        append = {
+            "name": name,
+            "tests": test_ids,
+            "grades": [],
+            "average": 0.0
+        }
+
+        values_weighted = 0
+        for test_id in test_ids:
+            weight = STest.query.filter_by(id=test_id).first().weight
+            sgrade = SGrade.query.filter_by(sgrade_id=test_id, user_id=user_id).first()
+            if sgrade:
+                value = sgrade.value
+                date = sgrade.date
+                sname = STest.query.filter_by(id=test_id).first().name
+                values_weighted += (value * weight)
+                append["grades"].append({
+                    "name": sname,
+                    "grade": value,
+                    "date": date.strftime("%m/%d/%Y, %H:%M:%S"),
+                    "weight": str(weight) + "%"
+                })
+        average = round((values_weighted / 100)/len(test_ids)*2)/2
+        append["average"] = average
+        ret.append(append)
+    return ret
+
 
 def gather_absences(user_id):
     ret_obj = {

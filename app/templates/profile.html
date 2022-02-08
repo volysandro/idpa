@@ -14,6 +14,7 @@
         {{user}} <br>
         {{grades}} <br>
         {{absences}} <br>
+        {{specials}}
 
         <div class="card">
           <div class="card-content">
@@ -36,6 +37,33 @@
             </table>
           </div>
         </div>
+
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title center-align">Overview Special Grades</span>
+            <table>
+              <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade 1-?</th>
+                    <th>Average</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for subject in specials %}
+                <tr>
+                  <td>{{subject.name}}</td>
+                  {% for grade in subject.grades %}
+                    <td>{{grade.name}}({{grade.weight}}): {{grade.grade}}</td>
+                  {% endfor %}
+                  <td>{{subject.average}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <div class="card">
           <div class="card-content">

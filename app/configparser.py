@@ -160,6 +160,6 @@ def parse(config_json):
             test_ids.append(stest_id)
             iter += 1
         
-        sbucket = SBucket(name=name, tests=test_ids, class_id=class_id)
+        sbucket = SBucket(name=subject["name"], tests=test_ids, class_id=class_id)
         db.session.add(sbucket)
         db.session.commit()
