@@ -37,7 +37,7 @@
               <tbody>
                 {% for item in grades.averages %}
                 <tr>
-                  <td>{{item.name}}</td>
+                  <td><a href="/grades/{{item.sid}}">{{item.name}}</a></td>
                   <td>{{item.average}}</td>
                 </tr>
                 {% endfor %}

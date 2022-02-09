@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request
 from . import db
 from flask_login import current_user, login_required
-from .userlogic import enrol, gather_info, gather_grades, submit_grade, get_subjects, submit_absence, gather_absences, get_special_tests, submit_special_grade, gather_special_grades
+from .userlogic import enrol, gather_info, gather_grades, submit_grade, get_subjects, submit_absence, gather_absences, get_special_tests, submit_special_grade, gather_special_grades, gather_subject_grades, delete_grade
 main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/')
@@ -60,3 +60,15 @@ def submitspecialgrade():
     grade = request.form.get("grade")
     submit_special_grade(current_user.id, t_id, grade)
     return "OK"
+
+
+@main_blueprint.route("/grades/<subject>/")
+def gradesforsubject(subject):
+    id = subject
+    user_id = current_user.id
+    return render_template("grades.html", grades=gather_subject_grades(current_user.id, id))
+
+@main_blueprint.route("/api/grades/<id>/delete")
+def deletegrade(id):
+    delete_grade(id)
+    return redirect("/profile")

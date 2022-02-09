@@ -181,3 +181,24 @@ def gather_absences(user_id):
             "min_satisfied": False if (count / (weeks * subject.weekly) * 100) > (100 - min) else True
         })
     return ret_obj
+
+def gather_subject_grades(user_id, subject_id):
+    user = User.query.filter_by(id=user_id).first()
+    grades = Grade.query.filter_by(user_id=user_id, subject_id=subject_id).all()
+
+    ret_obj = {
+        "name": "",
+        "grades":[]
+    }
+    ret_obj["name"] = Subject.query.filter_by(id=subject_id).first().name
+    for grade in grades:
+        ret_obj["grades"].append({
+            "id": grade.id,
+            "grade": grade.value,
+            "date": grade.date.strftime("%m/%d/%Y, %H:%M:%S")
+        })
+    return ret_obj
+
+def delete_grade(id, user_id):
+    Grade.query.filter_by(id=id, user_id=user_id).delete()
+    db.session.commit()
