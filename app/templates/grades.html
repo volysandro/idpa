@@ -1,1 +1,50 @@
-{{grades}}
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/profile">Profile</a></li>
+              </ul>
+              <span class="brand-logo center">Yet another grade manager</span>
+              <a href="#" class="brand-logo right">Logo</a>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                  <span class="card-title center-align">Your grades in {{grades.name}}</span>
+                  <table>
+                    <thead>
+                      <tr>
+                          <th>Grade</th>
+                          <th>Date</th>
+                          <th>Delete Grade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for grade in grades.grades %}
+                      <tr>
+                        <td>{{grade.grade}}</td>
+                        <td>{{grade.date}}</td>
+                        <td><a href="/api/grades/{{grade.id}}/delete"><i class="material-icons">delete</i></a></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+    </body>
+</html>
+

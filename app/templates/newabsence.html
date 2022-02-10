@@ -1,23 +1,3 @@
-
-<!--<form method="POST" action="/user/api/absence/submit">
-
-    <label for="subject">Choose a car:</label>
-    <select id="subject" name="subject">
-        {% for subject in subjects %}
-        <option value="{{subject.id}}">{{subject.name}}</option>
-
-        {% endfor %}
-    </select>
-
-    <div class="field">
-        <div class="control">
-            <input class="input is-large" type="text" name="count" placeholder="Number of lessons">
-        </div>
-    </div>
-    <button class="button is-block is-info is-large is-fullwidth">Login</button>
-</form>-->
-
-
 <html>
     <head>
         <script
@@ -28,6 +8,17 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     <body>
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/grades/submit">Add new grade</a></li>
+                <li><a href="/specialgrades/submit">Add new special grade</a></li>     
+              </ul>
+              <span class="brand-logo center">Yet another grade manager</span>
+            </div>
+        </nav>
         <div class="card">
             <div class="card-content">
               <span class="card-title center-align">Create new Abcence</span>
