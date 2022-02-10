@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request
 from . import db
 from flask_login import current_user, login_required
 from .userlogic import enrol, gather_info, gather_grades, submit_grade, get_subjects, submit_absence, gather_absences, get_special_tests, submit_special_grade, gather_special_grades, gather_subject_grades, delete_grade
+from .extensions import socketio
 main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/')
@@ -16,6 +17,11 @@ def index():
 @login_required
 def profile():
     return render_template("profile.html", info=gather_info(current_user.id), grades=gather_grades(current_user.id), user=current_user, absences=gather_absences(current_user.id), specials=gather_special_grades(current_user.id))
+
+@main_blueprint.route('/chat')
+@login_required
+def chat():
+    return render_template("chat.html")
 
 @main_blueprint.route('/enterclass')
 def enterclass():
@@ -72,3 +78,16 @@ def gradesforsubject(subject):
 def deletegrade(id):
     delete_grade(id)
     return redirect("/profile")
+
+
+@socketio.on('msg')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: '+ str(json))
+    socketio.emit('recv', json, callback=messageReceived)
+
+
+
+
+
+if __name__ == '__main__':
+    socketio.run(app)

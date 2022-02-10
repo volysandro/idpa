@@ -1,15 +1,21 @@
 from flask import Flask
+from flask import app as app
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__, template_folder="templates/")
 
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+
+    global socketio
+    socketio = SocketIO(app)
 
     db.init_app(app)
 

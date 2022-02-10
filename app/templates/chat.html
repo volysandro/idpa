@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+        <footer class="page-footer grey darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <form action="" method="POST">
+                    <input type="text" class="message" placeholder="Messages"/>
+                    <input type="submit"/>
+                </form>
+                <h5 class="white-text">Yet another grade manager</h5>
+                <div class="incoming_message_holder"></div>
+                <div class="message holder"></div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2022 Volery & Ingold IT-Solutions
+            </div>
+          </div>
+        </footer>
+    </body>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var id = makeid(length)
+        socket.on( 'connect', function() {
+        
+        socket.emit( 'connected', {
+            data: 'User Connected'
+        })
+        })
+        var form = $( 'form' ).on( 'submit', function( e ) {
+                e.preventDefault()
+                let user_input = $( 'input.message' ).val()
+                socket.emit( 'msg', {
+                    message : user_input,
+                    id: id
+                })
+                $( 'div.message_holder' ).append('<div><b style="color:#000">'+msg.user_name+'</b>'+msg.message+'</div>' )
+                $( 'input.message' ).val( '' ).focus()
+            })
+
+        socket.on( 'recv', function( msg ) {
+        console.log( msg )
+        if( typeof msg.user_name !== 'undefined' && msg.id !== id) {
+            $( 'div.incoming_message_holder' ).append('<div><b style="color:#000">'+msg.user_name+'</b>'+msg.message+'</div>' )
+        }
+        })
+
+        function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) 
+            {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+
+    </script>
+</html>
