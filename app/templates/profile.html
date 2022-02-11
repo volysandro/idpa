@@ -19,97 +19,98 @@
           <span class="brand-logo center">Yet another grade manager</span>
         </div>
       </nav>
-
-      <div class="container">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title center-align">Overview Grades</span>
-            <table class="reponsive">
-              <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Average</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in grades.averages %}
-                <tr>
-                  <td><a href="/grades/{{item.sid}}">{{item.name}}</a></td>
-                  <td>{{item.average}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title center-align">Overview Special Grades</span>
-            <table>
-              <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Grade 1-?</th>
-                    <th>Average</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for subject in specials %}
-                <tr>
-                  <td>{{subject.name}}</td>
-                  {% for grade in subject.grades %}
-                    <td>{{grade.name}}({{grade.weight}}): {{grade.grade}}</td>
+      <main>
+        <div class="container">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title center-align">Overview Grades</span>
+              <table class="reponsive">
+                <thead>
+                  <tr>
+                      <th>Subject</th>
+                      <th>Average</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in grades.averages %}
+                  <tr>
+                    <td><a href="/grades/{{item.sid}}">{{item.name}}</a></td>
+                    <td>{{item.average}}</td>
+                  </tr>
                   {% endfor %}
-                  <td>{{subject.average}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title center-align">Overview Special Grades</span>
+              <table>
+                <thead>
+                  <tr>
+                      <th>Subject</th>
+                      <th>Grade 1-?</th>
+                      <th>Average</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for subject in specials %}
+                  <tr>
+                    <td>{{subject.name}}</td>
+                    {% for grade in subject.grades %}
+                      <td>{{grade.name}}({{grade.weight}}): {{grade.grade}}</td>
+                    {% endfor %}
+                    <td>{{subject.average}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
 
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title center-align">Overview Absences</span>
-            <table>
-              <thead>
-                <tr>
-                    <th>Lessions</th>
-                    <th>Percentage</th>
-                    <th>Delta</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for sub in absences.subjects %}
-                <tr>
-                  <td>{{sub.count}}</td>
-                  <td>{{sub.percentage}}</td>
-                  <td>{{sub.min_satisfied}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title center-align">Overview Absences</span>
+              <table>
+                <thead>
+                  <tr>
+                      <th>Lessions</th>
+                      <th>Percentage</th>
+                      <th>Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sub in absences.subjects %}
+                  <tr>
+                    <td>{{sub.count}}</td>
+                    <td>{{sub.percentage}}</td>
+                    <td>{{sub.min_satisfied}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
         </div>
       </div>
-    </div>
-        <footer class="page-footer grey darken-4">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Yet another grade manager</h5>
-                <p class="grey-text text-lighten-4">Thank you for using our amazing grade manager. Enjoy the journey.</p>
-              </div>
-            </div>
+    </main>
+    <footer class="page-footer grey darken-4" style="position:fixed;bottom:0;left:0;width:100%;">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Yet another grade manager</h5>
+            <p class="grey-text text-lighten-4">Thank you for using our amazing grade manager. Enjoy the journey.</p>
           </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2022 Volery & Ingold IT-Solutions
-            </div>
-          </div>
-        </footer>
-    </body>
-    <script>
-    </script>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2022 Volery & Ingold IT-Solutions
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+  </script>
 </html>

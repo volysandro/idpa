@@ -70,5 +70,5 @@ def gradesforsubject(subject):
 
 @main_blueprint.route("/api/grades/<id>/delete")
 def deletegrade(id):
-    delete_grade(id)
+    delete_grade(id, current_user.id)
     return redirect("/profile")
