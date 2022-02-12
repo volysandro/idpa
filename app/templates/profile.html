@@ -76,6 +76,7 @@
               <table>
                 <thead>
                   <tr>
+                      <th>Name</th>
                       <th>Lessions</th>
                       <th>Percentage</th>
                       <th>Delta</th>
@@ -84,6 +85,7 @@
                 <tbody>
                   {% for sub in absences.subjects %}
                   <tr>
+                    <td><a href="/absences/{{sub.sid}}">{{sub.name}}</a></td>
                     <td>{{sub.count}}</td>
                     <td>{{sub.percentage}}</td>
                     <td>{{sub.min_satisfied}}</td>

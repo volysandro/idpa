@@ -176,6 +176,8 @@ def gather_absences(user_id):
             for absence in absences:
                 count += absence.count
         ret_obj["subjects"].append({
+            "sid": subject.id,
+            "name": subject.name,
             "count": count,
             "percentage": count / (weeks * subject.weekly) * 100,
             "min_satisfied": False if (count / (weeks * subject.weekly) * 100) > (100 - min) else True
@@ -202,3 +204,30 @@ def gather_subject_grades(user_id, subject_id):
 def delete_grade(id, user_id):
     Grade.query.filter_by(id=id, user_id=user_id).delete()
     db.session.commit()
+
+def delete_absence(id, user_id):
+    Absence.query.filter_by(id=id, user_id=user_id).delete()
+    db.session.commit()
+
+
+
+def gather_subject_absences(user_id, subject_id):
+    user = User.query.filter_by(id=user_id).first()
+    subject = Subject.query.filter_by(id=subject_id).first()
+    ret_obj = {
+        "name": subject.name,
+        "absences": []
+
+    }
+
+    if not user.class_id == subject.class_id:
+        return "Dont try dumb stuff"
+    absences = Absence.query.filter_by(subject_id=subject_id).all()
+    for absence in absences:
+        ret_obj["absences"].append({
+            "date": absence.date,
+            "lessons": absence.count,
+            "id": absence.id
+        })
+    return ret_obj
+

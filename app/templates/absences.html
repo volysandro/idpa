@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"></script>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+
+        <nav class="grey darken-4"> 
+            <div class="nav-wrapper">
+              <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/grades/submit">Add new grade</a></li>
+                <li><a href="/absences/submit">Add new absence</a></li>
+              </ul>
+              <span class="brand-logo center">Yet another grade manager</span>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                  <span class="card-title center-align">Your absences in {{absences.name}}</span>
+                  <table>
+                    <thead>
+                      <tr>
+                          <th>Date</th>
+                          <th>Lessons</th>
+                          <th>Delete Absence</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for absence in absences.absences %}
+                      <tr>
+                        <td>{{absence.date}}</td>
+                        <td>{{absence.lessons}}</td>
+                        <td><a href="/api/absences/{{absence.id}}/delete"><i class="material-icons">delete</i></a></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+        <footer class="page-footer grey darken-4" style="position:fixed;bottom:0;left:0;width:100%;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Yet another grade manager</h5>
+                <p class="grey-text text-lighten-4">Thank you for using our amazing grade manager. Enjoy the journey.</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2022 Volery & Ingold IT-Solutions
+            </div>
+          </div>
+        </footer>
+    </body>
+</html>
+
